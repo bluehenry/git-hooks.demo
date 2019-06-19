@@ -1,4 +1,18 @@
 #!/bin/sh
 
-echo "Can you make a commit? Well, it depends."
-exit 1
+# Validate git user email address
+# Retrieve email address information as Git sees it while commiting
+EMAIL=$(git config --get user.email ) || exit 1
+
+printf "EMAIL: %s\n" "${EMAIL}"
+
+# Enable case insensitive match
+shopt -s nocasematch
+if [[ $EMAIL != *"@gmail.com"* ]]
+then 
+    echo "please set up git user.email with @gmail.com email address"
+    exit 1
+fi;    
+
+# Disable case insensitive match
+shopt -u nocasematch
