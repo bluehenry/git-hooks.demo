@@ -1,18 +1,20 @@
 #!/bin/sh
 
 # Validate git user email address
-# Retrieve email address information as Git sees it while commiting
-EMAIL=$(git config --get user.email ) || exit 1
+validate_email(){
+    # Retrieve email address information as Git sees it while commiting
+    EMAIL=$(git config --get user.email ) || exit 1
 
-printf "EMAIL: %s\n" "${EMAIL}"
+    printf "EMAIL: %s\n" "${EMAIL}"
 
-# Enable case insensitive match
-shopt -s nocasematch
-if [[ $EMAIL != *"@gmail.com"* ]]
-then 
-    echo "please set up git user.email with @gmail.com email address"
-    exit 1
-fi;    
+    # Enable case insensitive match
+    shopt -s nocasematch
+    if [[ $EMAIL != *"@bhp.com"* ]]
+    then 
+        echo "please set up git user.email with @gmail.com email address"
+        exit 1
+    fi;    
 
-# Disable case insensitive match
-shopt -u nocasematch
+    # Disable case insensitive match
+    shopt -u nocasematch
+}
